@@ -64,6 +64,54 @@
             <param name="id">PK Column Id</param>
             <returns></returns>
         </member>
+        <member name="T:Lookups.WebAPI.Controllers.EmployeesController">
+            <inheritdoc />
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.#ctor(Lookups.Service.Interfaces.IEmployeeService)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.GetAllPaged(Lookups.Service.FilterDto.EmployeeFilterDto,Common.StandardInfrastructure.PagingSortingDto)">
+            <summary>
+            Get data pagged 
+            </summary>
+            <param name="filteringDto"> Search filter</param>
+            <param name="pagingSortingDto">Sort Parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.GetAll">
+            <summary>
+            Get all data 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.Get(System.Guid)">
+            <summary>
+            Get data by Id
+            </summary>
+            <param name="id">PK Column Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.Add(Lookups.Service.Dto.AddUpdateEmployeeDto)">
+            <summary>
+            Insert new
+            </summary>
+            <param name="employeeDto">Inserted object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.Update(Lookups.Service.Dto.AddUpdateEmployeeDto)">
+            <summary>
+            Update data
+            </summary>
+            <param name="employeeDto">Updated Object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.Delete(System.Guid)">
+            <summary>
+            Delete data by Id
+            </summary>
+            <param name="id">PK Column Id</param>
+            <returns></returns>
+        </member>
         <member name="T:Lookups.WebAPI.Controllers.GendersController">
             <inheritdoc />
         </member>

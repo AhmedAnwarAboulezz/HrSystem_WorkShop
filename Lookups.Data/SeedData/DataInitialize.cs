@@ -30,8 +30,8 @@ namespace Lookups.Data.SeedData
                     select new Gender
                     {
                         Id = ((GenderEnum)enumItem).GetEnumGuid(),
-                        GenderNameFl = ((GenderEnum)enumItem).GetName(true)[0],
-                        GenderNameSl = ((GenderEnum)enumItem).GetName(true)[1],
+                        NameFl = ((GenderEnum)enumItem).GetName(true)[0],
+                        NameSl = ((GenderEnum)enumItem).GetName(true)[1],
                         IsShown = ((GenderEnum)enumItem).GetEnumGuid() == GenderEnum.Both.GetEnumGuid() ? false : true
                     }).ToList();
 

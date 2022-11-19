@@ -7,9 +7,9 @@ namespace Lookups.Data.Entities
     public class Gender : BaseModel
     {
         [StringLength(50)]
-        public string GenderNameFl { get; set; }
+        public string NameFl { get; set; }
         [StringLength(50)]
-        public string GenderNameSl { get; set; }
+        public string NameSl { get; set; }
         public bool IsShown { get; set; }
     }
 }
