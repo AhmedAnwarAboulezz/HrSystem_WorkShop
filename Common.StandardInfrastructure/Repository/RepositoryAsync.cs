@@ -46,27 +46,7 @@ namespace Common.StandardInfrastructure.Repository
             var result = queryData.Union(unionData);
             return (await result.ToListAsync(), count);
         }
-        public (IEnumerable<T>, int) GetPagedList(Expression<Func<T, bool>> predicate, PagingSortingDto pagingSortingDto, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool disableTracking = false, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Expression<Func<T, bool>> predicateUnion = null, bool isDelete = true)
-        {
-            IQueryable<T> dbsetQuery = DbSet;
-            if (include != null) dbsetQuery = include(dbsetQuery).AsSplitQuery();
-            if (dbsetQuery != null)
-            {
-                var query = dbsetQuery.AsEnumerable();
-                query = query.Where(GetPredicate(predicate).Compile());
-                query = query.AsQueryable().OrderByWithDirection(pagingSortingDto.SortDirection, pagingSortingDto.SortField, orderBy);
-                var count = query.Count();
-                var queryData = pagingSortingDto.Limit == 1 ? query : query.AsQueryable().GetPaggedList(pagingSortingDto.Offset, pagingSortingDto.Limit ?? 10);
-                if (predicateUnion == null) return (queryData.ToList(), count);
-                IQueryable<T> queryUnion = DbSet;
-                var unionData = queryUnion.Where(GetPredicate(predicateUnion, isDelete));
-                if (include != null) unionData = include(unionData).AsSplitQuery();
-                var result = queryData.Union(unionData);
-                return (result.ToList(), count);
-            }
-
-            return (null, 0);
-        }
+       
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, PagingSortingDto pagingSortingDto = null,
             bool disableTracking = false, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, bool isDelete = true)
@@ -94,11 +74,12 @@ namespace Common.StandardInfrastructure.Repository
             IQueryable<T> query = DbSet;
             return await query.FirstOrDefaultAsync(q => q.Id == new Guid(id[0].ToString()));
         }
-        public async Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool disableTracking = false, bool isDelete = true)
+        public async Task<IEnumerable<T>> GetAllAsync(Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null, bool disableTracking = false, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, bool isDelete = true)
         {
             IQueryable<T> query = DbSet;
             if (disableTracking) query = query.AsNoTracking();
             query = query.Where(GetPredicate(isDelete: isDelete));
+            query = query.OrderByCustom(orderBy);
             if (include != null) query = include(query).AsSplitQuery();
             return await query.ToListAsync();
         }

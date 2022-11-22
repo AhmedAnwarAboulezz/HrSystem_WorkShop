@@ -26,6 +26,7 @@ namespace Lookups.Data.Entities
         [ForeignKey("ManagerId")]
         public Employee Manager { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<EmployeeLog> EmployeeLogs { get; set; }
 
     }
 }

@@ -64,6 +64,46 @@
             <param name="id">PK Column Id</param>
             <returns></returns>
         </member>
+        <member name="T:Lookups.WebAPI.Controllers.EmployeeLogsController">
+            <inheritdoc />
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.#ctor(Lookups.Service.Interfaces.IEmployeeLogService)">
+            <inheritdoc />
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.GetAll">
+            <summary>
+            Get all data 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.Get(System.Guid)">
+            <summary>
+            Get data by Id
+            </summary>
+            <param name="id">PK Column Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.Add(Lookups.Service.Dto.AddEmployeeLogDto)">
+            <summary>
+            Insert new
+            </summary>
+            <param name="employeeLogDto">Inserted object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.Update(Lookups.Service.Dto.UpdateEmployeeLogDto)">
+            <summary>
+            Update data
+            </summary>
+            <param name="employeeLogDto">Updated Object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeeLogsController.Delete(System.Guid)">
+            <summary>
+            Delete data by Id
+            </summary>
+            <param name="id">PK Column Id</param>
+            <returns></returns>
+        </member>
         <member name="T:Lookups.WebAPI.Controllers.EmployeesController">
             <inheritdoc />
         </member>

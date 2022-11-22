@@ -17,6 +17,10 @@ namespace Common.StandardInfrastructure
         {
             return orderBy != null ? orderBy(query).ThenBy($"{sortField} {sortDirection}") : query.OrderBy($"{sortField} {sortDirection}");
         }
+        public static IQueryable<T> OrderByCustom<T>(this IQueryable<T> query, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+        {
+            return orderBy != null ? orderBy(query) : query;
+        }
         public static IQueryable<T> GetPaggedList<T>(this IQueryable<T> query, int offset, int limit)
         {
             offset = offset < 1 ? 1 : offset;
