@@ -34,6 +34,76 @@ namespace Lookups.Service.Services
             return Mapper.Map<IEnumerable<GetEmployeeLogDto>>(list);
         }
 
+        public async Task<PagedListDto<GetEmployeeLogDto>> GetAllPaged(EmployeeLogFilterDto filteringDto, PagingSortingDto pagingSortingDto)
+        {
+            ExpressionStarter<EmployeeLog> predicate = GetEmployeeLogPredicte(filteringDto);
+            var (list, count) = await UnitOfWork.GetRepository<EmployeeLog>().GetPagedListAsync(
+                predicate,
+                pagingSortingDto,
+                include: a => a.Include(r => r.Employee));
+            return new PagedListDto<GetEmployeeLogDto>() { List = Mapper.Map<List<GetEmployeeLogDto>>(list), Count = count };
+        }
+
+        private static ExpressionStarter<EmployeeLog> GetEmployeeLogPredicte(EmployeeLogFilterDto filteringDto)
+        {
+            var predicate = PredicateBuilder.New(Helper.GetPredicate<EmployeeLog, EmployeeLogFilterDto>(filteringDto));
+            if (!string.IsNullOrWhiteSpace(filteringDto.EmployeeNameFl?.Name))
+            {
+                var isContain = filteringDto.EmployeeNameFl.IsContain;
+                var filterName = filteringDto.EmployeeNameFl.Name.ToLower();
+
+                if (isContain == (int)Filter_GridEnum.Contains)
+                {
+                    predicate = predicate.And(p => p.Employee.NameFl.ToLower().Contains(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.StartWith)
+                {
+                    predicate = predicate.And(p => p.Employee.NameFl.ToLower().StartsWith(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.EndWith)
+                {
+                    predicate = predicate.And(p => p.Employee.NameFl.ToLower().EndsWith(filterName));
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(filteringDto.EmployeeNameSl?.Name))
+            {
+                var isContain = filteringDto.EmployeeNameSl.IsContain;
+                var filterName = filteringDto.EmployeeNameSl.Name.ToLower();
+
+                if (isContain == (int)Filter_GridEnum.Contains)
+                {
+                    predicate = predicate.And(p => p.Employee.NameSl.ToLower().Contains(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.StartWith)
+                {
+                    predicate = predicate.And(p => p.Employee.NameSl.ToLower().StartsWith(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.EndWith)
+                {
+                    predicate = predicate.And(p => p.Employee.NameSl.ToLower().EndsWith(filterName));
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(filteringDto.EmployeeCode?.Name))
+            {
+                var isContain = filteringDto.EmployeeCode.IsContain;
+                var filterName = filteringDto.EmployeeCode.Name.ToLower();
+
+                if (isContain == (int)Filter_GridEnum.Contains)
+                {
+                    predicate = predicate.And(p => p.Employee.Code.ToLower().Contains(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.StartWith)
+                {
+                    predicate = predicate.And(p => p.Employee.Code.ToLower().StartsWith(filterName));
+                }
+                else if (isContain == (int)Filter_GridEnum.EndWith)
+                {
+                    predicate = predicate.And(p => p.Employee.Code.ToLower().EndsWith(filterName));
+                }
+            }
+            return predicate;
+        }
+
         public async Task<GetEmployeeLogDto> Get(Guid id)
         {
             var employeeLog = await UnitOfWork.GetRepository<EmployeeLog>().GetAsync(id);

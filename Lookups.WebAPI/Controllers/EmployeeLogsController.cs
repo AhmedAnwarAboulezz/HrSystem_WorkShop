@@ -29,6 +29,20 @@ namespace Lookups.WebAPI.Controllers
             var list = await _employeeLogService.GetAll();
             return Ok(list);
         }
+
+        /// <summary>
+        /// Get data paged 
+        /// </summary>
+        /// <param name="filteringDto"> Search filter</param>
+        /// <param name="pagingSortingDto">Sort Parameters</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetAllPaged([FromBody] EmployeeLogFilterDto filteringDto, [FromQuery] PagingSortingDto pagingSortingDto)
+        {
+            var result = await _employeeLogService.GetAllPaged(filteringDto, pagingSortingDto);
+            return Ok(result);
+        }
+
         /// <summary>
         /// Get data by Id
         /// </summary>
