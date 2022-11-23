@@ -13,8 +13,8 @@ namespace Lookups.Service.FilterDto
         public DynamicFilterDto<string> Address { get; set; }
         public DynamicFilterDto<string> Email { get; set; }
         public DynamicFilterDto<string> PhoneNumber { get; set; }
-        public List<Guid?> CountryIds { get; set; }
-        public List<Guid?> GenderIds { get; set; }
+        public Guid?[] CountryIds { get; set; }
+        public Guid?[] GenderIds { get; set; }
         public DynamicFilterDto<string> ManagerNameFl { get; set; }
         public DynamicFilterDto<string> ManagerNameSl { get; set; }
     }
