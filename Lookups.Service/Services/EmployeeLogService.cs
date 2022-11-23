@@ -112,7 +112,7 @@ namespace Lookups.Service.Services
 
         public async Task<string> Add(AddEmployeeLogDto employeeLogDto)
         {
-            if (IsLogExistForDay(employeeLogDto as UpdateEmployeeLogDto).Result)
+            if (IsLogExistForDay(employeeLogDto).Result)
             {
                 return LookupsLocalize["EmployeeLogService_IsExists"];
             }
@@ -120,22 +120,22 @@ namespace Lookups.Service.Services
             {
 
                 var employeeLog = new EmployeeLog(
-                    employeeLogDto.EmployeeId, 
-                    employeeLogDto.DayDate, 
+                    employeeLogDto.EmployeeId,
+                    employeeLogDto.DayDate,
                     employeeLogDto.SignInTime,
                     employeeLogDto.SignOutTime
                     );
-                    //Mapper.Map<AddUpdateEmployeeLogDto, EmployeeLog>(employeeLogDto);
+                //Mapper.Map<AddUpdateEmployeeLogDto, EmployeeLog>(employeeLogDto);
                 await UnitOfWork.GetRepository<EmployeeLog>().AddAsync(employeeLog);
                 await UnitOfWork.SaveChangesAsync();
                 return null;
             }
         }
 
-        private async Task<bool> IsLogExistForDay(UpdateEmployeeLogDto logDto)
+        private async Task<bool> IsLogExistForDay<T>(T logDto) where T : AddEmployeeLogDto
         {
-            return await UnitOfWork.GetRepository<EmployeeLog>().IsExistAnyAsync(a => 
-            a.EmployeeId == logDto.EmployeeId 
+            return await UnitOfWork.GetRepository<EmployeeLog>().IsExistAnyAsync(a =>
+            a.EmployeeId == logDto.EmployeeId
             && a.DayDate.Date == logDto.DayDate.Date
             && a.Id != logDto.Id
             );
@@ -143,16 +143,16 @@ namespace Lookups.Service.Services
 
         public async Task<string> Update(UpdateEmployeeLogDto employeeLogDto)
         {
-            if (await UnitOfWork.GetRepository<EmployeeLog>().IsExistAsync(employeeLogDto))
+            if (IsLogExistForDay(employeeLogDto).Result)
             {
                 return LookupsLocalize["EmployeeLogService_IsExists"];
             }
             else
             {
-    
-                var employeeLogOld =await UnitOfWork.GetRepository<EmployeeLog>().GetAsync(employeeLogDto.Id);
+
+                var employeeLogOld = await UnitOfWork.GetRepository<EmployeeLog>().GetAsync(employeeLogDto.Id);
                 var employeeLogNew = new EmployeeLog().Update(
-                                        employeeLogDto.Id,
+                                        employeeLogDto.Id.Value,
                                         employeeLogDto.EmployeeId,
                                         employeeLogDto.DayDate,
                                         employeeLogDto.SignInTime,

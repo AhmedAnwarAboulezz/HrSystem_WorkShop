@@ -6,6 +6,7 @@ namespace Lookups.Service.Dto
 {
     public class AddEmployeeLogDto
     {
+        public Guid? Id { get; set; }
         public Guid EmployeeId { get; set; }
         public DateTime DayDate { get; set; }
         public TimeSpan SignInTime { get; set; }
@@ -15,7 +16,7 @@ namespace Lookups.Service.Dto
 
     public class UpdateEmployeeLogDto : AddEmployeeLogDto
     {
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
 
     }
 }
