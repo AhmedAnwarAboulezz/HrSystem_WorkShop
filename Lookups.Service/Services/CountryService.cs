@@ -34,6 +34,11 @@ namespace Lookups.Service.Services
             return new PagedListDto<CountryDto>() { List = Mapper.Map<List<CountryDto>>(list), Count = count };
         }
 
+        public async Task<IEnumerable<DropDownDto>> GetDropdownList()
+        {
+            var list = await UnitOfWork.GetRepository<Country>().GetAllAsync();
+            return Mapper.Map<IEnumerable<DropDownDto>>(list);
+        }
         public async Task<CountryDto> Get(Guid id)
         {
             var country = await UnitOfWork.GetRepository<Country>().GetAsync(id);

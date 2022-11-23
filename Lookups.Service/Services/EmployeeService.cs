@@ -40,6 +40,33 @@ namespace Lookups.Service.Services
             return new PagedListDto<GetEmployeeDto>() { List = Mapper.Map<List<GetEmployeeDto>>(list), Count = count };
         }
 
+        public async Task<PagedListDto<EmployeeDropDownDto>> GetDropdownList(EmployeeDropDownRequestDto filterDto)
+        {
+            PagingSortingDto pagingSorting;
+            ExpressionStarter<Employee> predicate;
+            GetDropdownPredicate(filterDto, out pagingSorting, out predicate);
+            var (list, count) = await UnitOfWork.GetRepository<Employee>().GetPagedListAsync(
+            predicate,
+            pagingSorting
+            );
+            return new PagedListDto<EmployeeDropDownDto>() { List = Mapper.Map<List<EmployeeDropDownDto>>(list), Count = count };
+        }
+
+        private static void GetDropdownPredicate(EmployeeDropDownRequestDto filterDto, out PagingSortingDto pagingSorting, out ExpressionStarter<Employee> predicate)
+        {
+            pagingSorting = new PagingSortingDto()
+            {
+                Limit = filterDto.Limit,
+                Offset = filterDto.Offset
+            };
+            predicate = PredicateBuilder.New<Employee>(true);
+            if (filterDto.EmployeeId.HasValue && filterDto.EmployeeId != Guid.Empty) predicate = predicate.And(a => a.Id == filterDto.EmployeeId);
+            else if(!string.IsNullOrWhiteSpace(filterDto.Value))
+            {
+                predicate = predicate.And(a => a.NameFl.Contains(filterDto.Value) || a.NameSl.Contains(filterDto.Value) || a.Code.Contains(filterDto.Value));
+            }
+        }
+
         private static ExpressionStarter<Employee> GetEmployeePredicte(EmployeeFilterDto filteringDto)
         {
             var predicate = PredicateBuilder.New(Helper.GetPredicate<Employee, EmployeeFilterDto>(filteringDto));

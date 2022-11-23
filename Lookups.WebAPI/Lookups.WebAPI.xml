@@ -36,6 +36,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Lookups.WebAPI.Controllers.CountriesController.GetDropdownList">
+            <summary>
+            Get all data as a dropdown list 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Lookups.WebAPI.Controllers.CountriesController.Get(System.Guid)">
             <summary>
             Get data by Id
@@ -112,10 +118,17 @@
         </member>
         <member name="M:Lookups.WebAPI.Controllers.EmployeesController.GetAllPaged(Lookups.Service.FilterDto.EmployeeFilterDto,Common.StandardInfrastructure.PagingSortingDto)">
             <summary>
-            Get data pagged 
+            Get data paged 
             </summary>
             <param name="filteringDto"> Search filter</param>
             <param name="pagingSortingDto">Sort Parameters</param>
+            <returns></returns>
+        </member>
+        <member name="M:Lookups.WebAPI.Controllers.EmployeesController.GetDropdownList(Lookups.Service.Dto.EmployeeDropDownRequestDto)">
+            <summary>
+            Get Employee Dropdown List Paged
+            </summary>
+            <param name="filterDto"></param>
             <returns></returns>
         </member>
         <member name="M:Lookups.WebAPI.Controllers.EmployeesController.GetAll">

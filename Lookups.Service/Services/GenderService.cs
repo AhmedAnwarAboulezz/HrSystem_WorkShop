@@ -25,10 +25,10 @@ namespace Lookups.Service.Services
             var list = await UnitOfWork.GetRepository<Gender>().FindAsync(r => r.IsShown == true);
             return Mapper.Map<IEnumerable<Gender>, IEnumerable<GenderDto>>(list);
         }
-        public async Task<IEnumerable<DropdownDto>> GetDropdownList()
+        public async Task<IEnumerable<DropDownDto>> GetDropdownList()
         {
-            var list = await UnitOfWork.GetRepository<Gender>().GetAllAsync();
-            return Mapper.Map<IEnumerable<DropdownDto>>(list.Where(r => r.IsShown == true));
+            var list = await UnitOfWork.GetRepository<Gender>().FindAsync(a=>a.IsShown);
+            return Mapper.Map<IEnumerable<DropDownDto>>(list);
         }
         public async Task<GenderDto> Get(Guid id)
         {

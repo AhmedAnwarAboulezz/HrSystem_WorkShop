@@ -1,6 +1,7 @@
 ﻿using System;
 using Lookups.Service.Dto.Base;
 using System.ComponentModel.DataAnnotations;
+using Common.StandardInfrastructure;
 
 namespace Lookups.Service.Dto
 {
@@ -22,5 +23,22 @@ namespace Lookups.Service.Dto
         public Guid? ManagerId { get; set; }
         public string ManagerNameFl { get; set; }
         public string ManagerNameSl { get; set; }
+    }
+
+
+
+    public class EmployeeDropDownRequestDto
+    {
+        public string Value { get; set; }
+        public int Offset { get; set; }
+        public int Limit { get; set; }
+        public Guid? EmployeeId { get; set; }
+        public bool FirstCall { get; set; }
+    }
+
+    public class EmployeeDropDownDto : DropDownDto
+    {
+        public string FullNameFl => $"{Code} - {NameFl}";
+        public string FullNameSl => $"{Code} - {NameSl}";
     }
 }

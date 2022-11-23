@@ -22,26 +22,14 @@ namespace Lookups.Service.AutoMapper
         private void MapCountry()
         {
             CreateMap<CountryDto, Country>().ReverseMap();
+            CreateMap<DropDownDto, Country>().ReverseMap();
+
         }
-      
+
         private void MapGender()
         {
-            CreateMap<GenderDto, Gender>().ReverseMap()
-                .ForMember(dest => dest.GenderNameFl, opts =>
-                opts.MapFrom(src => Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.Ar ||
-                Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.ArEn ? src.NameSl : src.NameFl))
-                .ForMember(dest => dest.GenderNameSl,
-                opts => opts.MapFrom(src => Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.En
-                 || Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.ArEn ? src.NameFl : src.NameSl));
-            CreateMap<DropdownDto, Gender>().ReverseMap()
-                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
-
-                .ForMember(dest => dest.NameFl, opts =>
-                opts.MapFrom(src => Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.Ar ||
-                Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.ArEn ? src.NameSl : src.NameFl))
-                .ForMember(dest => dest.NameSl,
-                opts => opts.MapFrom(src => Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.En
-                 || Helper.ChangeProperty() == (int)Helper.ChangePropertyEnum.ArEn ? src.NameFl : src.NameSl));
+            CreateMap<GenderDto, Gender>().ReverseMap();
+            CreateMap<DropDownDto, Gender>().ReverseMap();
 
         }
 
@@ -55,6 +43,7 @@ namespace Lookups.Service.AutoMapper
                 .ForMember(dest => dest.GenderNameSl, opts => opts.MapFrom(src => src.Country.NameSl))
                 .ForMember(dest => dest.ManagerNameFl, opts => opts.MapFrom(src => src.Manager != null ? src.Manager.NameFl : "-"))
                 .ForMember(dest => dest.ManagerNameSl, opts => opts.MapFrom(src => src.Manager != null ? src.Manager.NameSl : "-"));
+            CreateMap<EmployeeDropDownDto, Employee>().ReverseMap();
         }
 
         private void MapEmployeeLog()

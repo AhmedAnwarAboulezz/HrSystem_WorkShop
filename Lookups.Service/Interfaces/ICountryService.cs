@@ -11,7 +11,7 @@ namespace Lookups.Service.Interfaces
     {
         Task<IEnumerable<CountryDto>> GetAll();
         Task<PagedListDto<CountryDto>> GetAllCountriesPaged(CountryFilterDto filteringDto, PagingSortingDto pagingSortingDto);
-
+        Task<IEnumerable<DropDownDto>> GetDropdownList();
         Task<CountryDto> Get(Guid id);
         Task<string> Add(CountryDto countryDto);
         Task<string> Update(CountryDto countryDto);

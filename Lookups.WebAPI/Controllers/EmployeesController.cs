@@ -19,7 +19,7 @@ namespace Lookups.WebAPI.Controllers
             _employeeService = employeeService;
         }
         /// <summary>
-        /// Get data pagged 
+        /// Get data paged 
         /// </summary>
         /// <param name="filteringDto"> Search filter</param>
         /// <param name="pagingSortingDto">Sort Parameters</param>
@@ -30,6 +30,19 @@ namespace Lookups.WebAPI.Controllers
             var result = await _employeeService.GetAllPaged(filteringDto, pagingSortingDto);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Get Employee Dropdown List Paged
+        /// </summary>
+        /// <param name="filterDto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> GetDropdownList(EmployeeDropDownRequestDto filterDto)
+        {
+            var result = await _employeeService.GetDropdownList(filterDto);
+            return Ok(result);
+        }
+
         /// <summary>
         /// Get all data 
         /// </summary>

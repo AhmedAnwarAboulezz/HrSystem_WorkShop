@@ -40,6 +40,18 @@ namespace Lookups.WebAPI.Controllers
             var list = await _countryService.GetAll();
             return Ok(list);
         }
+
+        /// <summary>
+        /// Get all data as a dropdown list 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetDropdownList()
+        {
+            var list = await _countryService.GetDropdownList();
+            return Ok(list);
+        }
+
         /// <summary>
         /// Get data by Id
         /// </summary>

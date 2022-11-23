@@ -11,6 +11,7 @@ namespace Lookups.Service.Interfaces
     {
         Task<IEnumerable<GetEmployeeDto>> GetAll();
         Task<PagedListDto<GetEmployeeDto>> GetAllPaged(EmployeeFilterDto filteringDto, PagingSortingDto pagingSortingDto);
+        Task<PagedListDto<EmployeeDropDownDto>> GetDropdownList(EmployeeDropDownRequestDto filterDto);
         Task<GetEmployeeDto> Get(Guid id);
         Task<string> Add(AddUpdateEmployeeDto EmployeeDto);
         Task<string> Update(AddUpdateEmployeeDto EmployeeDto);
