@@ -40,7 +40,7 @@ namespace Lookups.Service.AutoMapper
                 .ForMember(dest => dest.CountryNameFl, opts => opts.MapFrom(src => src.Country.NameFl))
                 .ForMember(dest => dest.CountryNameSl, opts => opts.MapFrom(src => src.Country.NameSl))
                 .ForMember(dest => dest.GenderNameFl, opts => opts.MapFrom(src => src.Gender.NameFl))
-                .ForMember(dest => dest.GenderNameSl, opts => opts.MapFrom(src => src.Country.NameSl))
+                .ForMember(dest => dest.GenderNameSl, opts => opts.MapFrom(src => src.Gender.NameSl))
                 .ForMember(dest => dest.ManagerNameFl, opts => opts.MapFrom(src => src.Manager != null ? src.Manager.NameFl : "-"))
                 .ForMember(dest => dest.ManagerNameSl, opts => opts.MapFrom(src => src.Manager != null ? src.Manager.NameSl : "-"));
             CreateMap<EmployeeDropDownDto, Employee>().ReverseMap();
