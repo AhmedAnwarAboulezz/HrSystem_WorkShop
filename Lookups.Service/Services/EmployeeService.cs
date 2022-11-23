@@ -71,8 +71,8 @@ namespace Lookups.Service.Services
         private static ExpressionStarter<Employee> GetEmployeePredicte(EmployeeFilterDto filteringDto)
         {
             var predicate = PredicateBuilder.New(Helper.GetPredicate<Employee, EmployeeFilterDto>(filteringDto));
-            if(filteringDto.CountryIds.Any()) predicate = predicate.And(p => filteringDto.CountryIds.Contains(p.CountryId));
-            if (filteringDto.GenderIds.Any()) predicate = predicate.And(p => filteringDto.GenderIds.Contains(p.GenderId));
+            if(filteringDto.CountryIds != null && filteringDto.CountryIds.Any()) predicate = predicate.And(p => filteringDto.CountryIds.Contains(p.CountryId));
+            if (filteringDto.GenderIds != null && filteringDto.GenderIds.Any()) predicate = predicate.And(p => filteringDto.GenderIds.Contains(p.GenderId));
             if (!string.IsNullOrWhiteSpace(filteringDto.ManagerNameFl?.Name))
             {
                 var isContain = filteringDto.ManagerNameFl.IsContain;
